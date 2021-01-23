@@ -627,7 +627,7 @@ char *blendModes[36] =
 
 		NSString *layerName = [[aLayer name] stringByAppendingString:@" "];
 		layerName = [layerName stringByPaddingToLength:15 withString:@" " startingAtIndex:0];
-		const char *layerNameCString = [layerName cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
+		const char *layerNameCString = [layerName cStringUsingEncoding:NSUTF8StringEncoding];
 		// Layer name: Pascal string 1 byte length + text, padded to a multiple of 4 bytes.
 		NSInteger len =  [layerName length] ;
 		[layerInfo appendValue:len withLength:1];
