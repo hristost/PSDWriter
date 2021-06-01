@@ -38,7 +38,7 @@ char blendModeSatKey[4] = {'s','a','t',' '};
 char blendModeColKey[4] = {'c','o','l','r'};
 char blendModeLumKey[4] = {'l','u','m',' '};
 char *blendModes[36] =
-{ &blendModeNormKey, &blendModeDissKey, &blendModeDarkKey, &blendModeMulKey,
+{ blendModeNormKey, blendModeDissKey, blendModeDarkKey, blendModeMulKey,
     0 };
 
 
@@ -103,12 +103,12 @@ char *blendModes[36] =
     if (screenRegion.origin.y + screenRegion.size.height > documentSize.height)
         imageRegion.size.height = screenRegion.size.height = documentSize.height - screenRegion.origin.y;
     if (screenRegion.origin.x < 0) {
-        imageRegion.origin.x = abs(screenRegion.origin.x);
+        imageRegion.origin.x = fabs(screenRegion.origin.x);
         screenRegion.origin.x = 0;
         screenRegion.size.width = imageRegion.size.width = imageRegion.size.width - imageRegion.origin.x;
     }
     if (screenRegion.origin.y < 0) {
-        imageRegion.origin.y = abs(screenRegion.origin.y);
+        imageRegion.origin.y = fabs(screenRegion.origin.y);
         screenRegion.origin.y = 0;
         screenRegion.size.height = imageRegion.size.height = imageRegion.size.height - imageRegion.origin.y;
     }
@@ -228,12 +228,12 @@ char *blendModes[36] =
       4 Key: a 4-character code - The key for the effects layer is 'lrFX'
       4 Length data below, rounded up to an even byte count.  */
     
-    NSUInteger effectLenght = 4 + 19 + 41 ;
+    NSUInteger effectLength = 4 + 19 + 41 ;
     
     [effectInfo appendBytes:&signature8BIM length:4];
     [effectInfo appendBytes:&effectKey length:4];
-    effectLenght = effectLenght + (effectLenght % 2);   // round up to even
-    [effectInfo appendBytes:effectLenght length:4];
+    effectLength = effectLength + (effectLength % 2);   // round up to even
+    [effectInfo appendBytes:&effectLength length:4];
 
     // add Effect header
     [effectInfo appendValue:0 withLength:2];    // verison 0
